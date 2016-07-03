@@ -40,3 +40,7 @@ div.container a.brand {
 .alert{
     padding-left: 35px;
 }
+
+.paginationControl{
+    text-align: center;
+}

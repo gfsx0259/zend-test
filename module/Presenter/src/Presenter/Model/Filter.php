@@ -5,7 +5,9 @@ namespace Presenter\Model;
 class Filter
 {
     public $available_filters = [
-        'theme_id'
+        'theme_id',
+        'year',
+        'month'
     ];
 
     public function getOptions($request){
@@ -20,7 +22,4 @@ class Filter
         return $options;
     }
 
-    public function getUrl($options){
-        return http_build_query($options);
-    }
 }

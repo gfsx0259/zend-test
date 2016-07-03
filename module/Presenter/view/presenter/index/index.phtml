@@ -3,11 +3,11 @@
         <div class="well">
             <?php foreach($this->dates_filter as $year => $year_list): ?>
                 <div class="year_option">
-                    <span><?php echo $year; ?></span>
+                    <span><a href="<?php echo $this->url('home').'?'.http_build_query(['year'=> $year, 'theme_id' => $this->filter_options['theme_id']]) ?>"><?php echo $year; ?></a></span>
                     <ul>
                         <?php foreach($year_list as $month): ?>
                             <li>
-                                <?php echo $this->month_names[$month["month"]-1]; ?>
+                                <a href="<?php echo $this->url('home').'?'.http_build_query(['year'=>$year, 'month'=>$month["month"], 'theme_id' => $this->filter_options['theme_id']]) ?>"><?php echo $this->month_names[$month["month"]-1]; ?></a>
                                 <b>(<?php echo $month['count']; ?>)</b>
                             </li>
                         <?php endforeach; ?>
@@ -18,14 +18,14 @@
         <div class="well">
             <?php foreach($this->themes_filter as $theme): ?>
                 <div class="year_option">
-                    <span><a href="<?php echo $this->url('home').'?'.'theme_id='.$theme['theme_id'] ?>"><?php echo $theme['theme_title']; ?></a></span>
+                    <span><a href="<?php echo $this->url('home').'?'.http_build_query(['year'=>$this->filter_options['year'], 'month'=>$this->filter_options['month'],'theme_id' =>$theme['theme_id']]); ?>"><?php echo $theme['theme_title']; ?></a></span>
                     <b>(<?php echo $theme['count']; ?>)</b>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
     <div class="col-md-8">
-        <?php foreach($this->list as $item): ?>
+        <?php foreach($this->paginator as $item): ?>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -41,5 +41,9 @@
                 </div>
             </div>
         <?php endforeach;?>
+        <?php echo $this->paginationControl($this->paginator,
+            'Sliding',
+            'partial/pagination_control.phtml', array('route' => 'presenter/paginator'));
+        ?>
     </div>
 </div>

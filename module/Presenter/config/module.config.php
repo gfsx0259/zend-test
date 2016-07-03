@@ -13,13 +13,25 @@ return array(
             'presenter' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/presenter/',
+                    'route'    => '/',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Presenter\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
                     ),
-                )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+
+                    'paginator' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => 'list[/page/:page]',
+                            'defaults' => array(
+                                'page' => 1,
+                            ),
+                        ),
+                        ),   ),
             ),
         ),
     ),

@@ -32,13 +32,23 @@ class News extends Base implements InputFilterAwareInterface
 
     public function getList($options = null){
 
-        $condition = '';
+        $conditions = [];
         if(count($options) > 0){
-            $condition = 'WHERE ';
             if(isset($options['theme_id'])){
-                $condition.= 'n.theme_id = \''.$options['theme_id'].'\'';
+                $conditions[] =  'n.theme_id = \''.$options['theme_id'].'\'';
+            }
+            if(isset($options['year'])){
+                $conditions[] = 'YEAR(date) = \''.$options['year'].'\'';
+            }
+            if(isset($options['month'])){
+                $conditions[] = 'MONTH(date) = \''.$options['month'].'\'';
             }
         }
+
+        if(count($conditions)){
+            $condition = 'WHERE '.implode(' AND ', $conditions);
+        }
+
 
         return $this->fetchAll("
             SELECT *, t.theme_title
