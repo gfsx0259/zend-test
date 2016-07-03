@@ -9,18 +9,45 @@
 
 namespace Presenter\Controller;
 
+use Presenter\Model\Filter;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model;
 
 class IndexController extends AbstractActionController
 {
+    public $month_names_ru = [
+        'Январь',
+        'Февраль',
+        'Март',
+        'Апрель',
+        'Май',
+        'Июнь',
+        'Июль',
+        'Август',
+        'Сентябрь',
+        'Октябрь',
+        'Ноябрь',
+        'Декабрь'
+    ];
 
     public function indexAction()
     {
-        $model = new Model\News($this->getServiceLocator()->get('db'));
-        $news_list = $model->fetchAll('SELECT * FROM news');
 
-        return new ViewModel(['list'=>$news_list]);
+        $filterModel = new Filter();
+        $filter_options = $filterModel->getOptions($this->getRequest());
+        $filter_url = $filterModel->getUrl($filter_options);
+
+        $model = new Model\News($this->getServiceLocator()->get('db'));
+        $themesModel = new Model\Themes($this->getServiceLocator()->get('db'));
+        $news_list = $model->getList($filter_options);
+
+        return new ViewModel([
+            'list'=>$news_list,
+            'dates_filter' => $model->getFilterDates(),
+            'month_names' => $this->month_names_ru,
+            'themes_filter' => $themesModel->getFilterThemes(),
+            'filter_url' => $filter_url
+        ]);
     }
 }

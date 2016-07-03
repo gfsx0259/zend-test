@@ -1,20 +1,24 @@
+<div class="form-group">
+    <a href="/editor/add/" class="btn btn-success">Добавить новость</a>
+</div>
+
 <table class="table table-bordered">
     <tr>
-        <th>Код новости</th>
-        <th>Заголовок</th>
-        <th>Текст</th>
-        <th>Категория</th>
+        <th>Название</th>
+        <th width="40%">Текст</th>
+        <th>Тема</th>
+        <th>Дата публикации</th>
         <th>Редактировать</th>
         <th>Удалить</th>
     </tr>
 <?php foreach($this->news as $item): ?>
     <tr>
-        <td><?php echo $item['news_id']?></td>
         <td><?php echo $item['title']?></td>
         <td><?php echo $item['text']?></td>
         <td><?php echo $item['theme_title']?></td>
-        <td><a href="<?php echo $item['news_id'];?>">Редактировать</a></td>
-        <td><a href="<?php echo $item['news_id'];?>">Удалить</a></td>
+        <td><?php echo $item['date']?></td>
+        <td><a href="edit/<?php echo $item['news_id'];?>/">Редактировать</a></td>
+        <td><a href="delete/<?php echo $item['news_id'];?>/">Удалить</a></td>
     </tr>
 <?php endforeach;?>
 </table>

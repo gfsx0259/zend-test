@@ -11,15 +11,15 @@ return array(
     'router' => array(
         'routes' => array(
             'editor' => array(
-                'type'    => 'Literal',
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/editor/',
+                    'route'    => '/editor/[:action/][:news_id/]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Editor\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
                     ),
-                )
+                ),
             ),
         ),
     ),

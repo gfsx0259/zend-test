@@ -16,6 +16,10 @@ class Base
         return $this->query($sql)->getResource()->fetchAll();
     }
 
+    public function fetchRow($sql){
+        return $this->query($sql)->getResource()->fetch();
+    }
+
     public function getList(){
         return $this->fetchAll("SELECT * FROM {$this->table}");
     }

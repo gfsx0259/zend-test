@@ -1,0 +1,51 @@
+<?php
+    $title = 'Добавить новость';
+    $this->headTitle($title);
+?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+    echo $this->formElementErrors($form, array('class' => "alert alert-danger"));// Print all error messages
+
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('editor', array('action' => 'add')));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+?>
+
+<div class="col-md-6">
+    <div class="row">
+        <div class="form-group <?php echo $this->formElementErrors($form->get("title")) != '' ? 'has-error' : '' ?>">
+            <?php echo $this->formLabel($form->get('title')); ?>
+           <?php echo $this->formInput($form->get('title')); ?>
+        </div>
+        <div class="form-group <?php echo $this->formElementErrors($form->get("date")) != '' ? 'has-error' : '' ?>">
+            <?php echo $this->formLabel($form->get('date')); ?>
+            <?php echo $this->formInput($form->get('date')); ?>
+        </div>
+        <div class="form-group <?php echo $this->formElementErrors($form->get("theme_id")) != '' ? 'has-error' : '' ?>">
+            <?php echo $this->formLabel($form->get('theme_id')); ?>
+            <?php echo $this->formSelect($form->get('theme_id')); ?>
+        </div>
+        <div class="form-group <?php echo $this->formElementErrors($form->get("text")) != '' ? 'has-error' : '' ?>">
+            <?php echo $this->formLabel($form->get('text')); ?>
+            <?php echo $this->formTextArea($form->get('text')); ?>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formSubmit($form->get('submit')); ?>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('input#date').datepicker({
+            dateFormat: 'yy-mm-dd',
+            showOtherMonths: true,
+            selectOtherMonths: true,
+        });
+    });
+</script>
+
+<?php echo $this->form()->closeTag();?>
