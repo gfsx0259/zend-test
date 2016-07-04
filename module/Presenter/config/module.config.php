@@ -11,18 +11,17 @@ return array(
     'router' => array(
         'routes' => array(
             'presenter' => array(
-                'type'    => 'Literal',
+                'type' => 'Literal',
                 'options' => array(
-                    'route'    => '/',
+                    'route' => '/',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Presenter\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
+                        'controller' => 'Index',
+                        'action' => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-
                     'paginator' => array(
                         'type' => 'segment',
                         'options' => array(
@@ -31,7 +30,19 @@ return array(
                                 'page' => 1,
                             ),
                         ),
-                        ),   ),
+                    ),
+                    'view' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => 'view[/:id]',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Presenter\Controller',
+                                'controller' => 'Index',
+                                'action' => 'view',
+                            ),
+                        ),
+                    ),
+                ),
             ),
         ),
     ),

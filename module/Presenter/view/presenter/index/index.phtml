@@ -1,13 +1,14 @@
 <div class="row">
     <div class="col-md-4">
-        <div class="well">
+        <div class="well filter-panel-dates">
+            <h3>Фильр по дате</h3>
             <?php foreach($this->dates_filter as $year => $year_list): ?>
                 <div class="year_option">
-                    <span><a href="<?php echo $this->url('home').'?'.http_build_query(['year'=> $year, 'theme_id' => $this->filter_options['theme_id']]) ?>"><?php echo $year; ?></a></span>
+                    <span><a class="<?php echo isset($this->filter_options['year']) && $this->filter_options['year'] == $year ? 'active': ''; ?>" href="<?php echo $this->url('home').'?'.http_build_query(['year'=> $year, 'theme_id' => $this->filter_options['theme_id']]) ?>"><?php echo $year; ?></a></span>
                     <ul>
                         <?php foreach($year_list as $month): ?>
                             <li>
-                                <a href="<?php echo $this->url('home').'?'.http_build_query(['year'=>$year, 'month'=>$month["month"], 'theme_id' => $this->filter_options['theme_id']]) ?>"><?php echo $this->month_names[$month["month"]-1]; ?></a>
+                                <a class="<?php echo isset($this->filter_options['month']) && $this->filter_options['year'] == $year && $this->filter_options['month'] == $month["month"] ? 'active' : ''; ?>" href="<?php echo $this->url('home').'?'.http_build_query(['year'=>$year, 'month'=>$month["month"], 'theme_id' => $this->filter_options['theme_id']]) ?>"><?php echo $this->month_names[$month["month"]-1]; ?></a>
                                 <b>(<?php echo $month['count']; ?>)</b>
                             </li>
                         <?php endforeach; ?>
@@ -15,10 +16,11 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="well">
+        <div class="well filter-panel-themes">
+            <h3>Фильр по теме</h3>
             <?php foreach($this->themes_filter as $theme): ?>
                 <div class="year_option">
-                    <span><a href="<?php echo $this->url('home').'?'.http_build_query(['year'=>$this->filter_options['year'], 'month'=>$this->filter_options['month'],'theme_id' =>$theme['theme_id']]); ?>"><?php echo $theme['theme_title']; ?></a></span>
+                    <span><a class="<?php echo $this->filter_options['theme_id'] == $theme['theme_id'] ? 'active' : ''; ?>" href="<?php echo $this->url('home').'?'.http_build_query(['year'=>$this->filter_options['year'], 'month'=>$this->filter_options['month'],'theme_id' =>$theme['theme_id']]); ?>"><?php echo $theme['theme_title']; ?></a></span>
                     <b>(<?php echo $theme['count']; ?>)</b>
                 </div>
             <?php endforeach; ?>
@@ -37,7 +39,8 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <?php echo $item['text']?>
+                    <?php echo $this->truncate($item['text']); ?>
+                    <a href="/view/<?php echo $item['news_id'];?>">Читать далее</a>
                 </div>
             </div>
         <?php endforeach;?>

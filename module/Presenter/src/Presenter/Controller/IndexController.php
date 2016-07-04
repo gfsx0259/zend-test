@@ -56,4 +56,12 @@ class IndexController extends AbstractActionController
             'paginator' => $paginator
         ]);
     }
+
+    public function viewAction()
+    {
+        $model = new Model\News($this->getServiceLocator()->get('db'));
+        $id = (int) $this->params()->fromRoute('id', 0);
+        return new ViewModel(['content' => $model->getById($id)]);
+    }
+
 }

@@ -44,3 +44,12 @@ div.container a.brand {
 .paginationControl{
     text-align: center;
 }
+
+.filter-panel-dates a.active,.filter-panel-themes a.active{
+    text-decoration: underline;
+    color:black;
+}
+
+.well h3{
+    margin-top:0;
+}

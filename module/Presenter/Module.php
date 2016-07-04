@@ -27,4 +27,13 @@ class Module
             ),
         );
     }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'truncate' => 'Presenter\View\Helper\Truncate'
+            ),
+        );
+    }
 }
